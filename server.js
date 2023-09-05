@@ -118,15 +118,17 @@ app.get('/shops', (req, res) => {
  
   app.get('/purchases', (req, res) => {
     const { shop, product, sort } = req.query;
-    var purchases = [...data.purchases];
+    let purchases = [...data.purchases];
+  
     if (shop) {
-      const shopId = parseInt(shop);
-      purchases = purchases.filter(purchase => purchase.shopId === shopId);
+      const shopIds = Array.isArray(shop) ? shop.map(Number) : [Number(shop)];
+      purchases = purchases.filter(purchase => shopIds.includes(purchase.shopId));
     }
   
+  
     if (product) {
-      const productId = parseInt(product);
-      purchases = purchases.filter(purchase => purchase.productid === productId);
+      const productIds = Array.isArray(product) ? product.map(Number) : [Number(product)];
+      purchases = purchases.filter(purchase => productIds.includes(purchase.productid));
     }
   
     if (sort) {
@@ -138,10 +140,10 @@ app.get('/shops', (req, res) => {
           purchases.sort((a, b) => b.quantity - a.quantity);
           break;
         case 'ValueAsc':
-          purchases.sort((a, b) => (a.price * a.quantity) - (b.price * b.quantity));
+          purchases.sort((a, b) => a.price * a.quantity - b.price * b.quantity);
           break;
         case 'ValueDesc':
-          purchases.sort((a, b) => (b.price * b.quantity) - (a.price * a.quantity));
+          purchases.sort((a, b) => b.price * b.quantity - a.price * a.quantity);
           break;
         default:
           break;
@@ -150,6 +152,7 @@ app.get('/shops', (req, res) => {
   
     res.json(purchases);
   });
+  
   
   app.get('/totalPurchase/shop/:id', (req, res) => {
     const shopId = parseInt(req.params.id);
