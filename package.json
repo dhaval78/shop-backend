@@ -3,5 +3,23 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.1-security"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "shop-backend",
+  "version": "1.0.0",
+  "description": "shop backend",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhaval78/shop-backend.git"
+  },
+  "author": "dhaval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhaval78/shop-backend/issues"
+  },
+  "homepage": "https://github.com/dhaval78/shop-backend#readme"
 }
