@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 
 app.get('/shops', (req, res) => {
-    const shops = data.shops.map(shop => ({ shopId: shop.shopId, shopName: shop.name }));
+    const shops = data.shops.map(shop => ({ shopId: shop.shopId, shopName: shop.name, rent:shop.rent }));
     res.json(shops);
   });
   
