@@ -115,19 +115,19 @@ app.get('/shops', (req, res) => {
     res.json(productPurchases);
   });
   
- 
   app.get('/purchases', (req, res) => {
-    const { shop, product, sort } = req.query;
+    const { shop, products, sort } = req.query;
     let purchases = [...data.purchases];
-  
     if (shop) {
-      const shopIds = Array.isArray(shop) ? shop.map(Number) : [Number(shop)];
+      const shopIds =Array.isArray(shop) ? shop.map(id => Number(id.match(/\d+/))) : [Number(shop.match(/\d+/))];
       purchases = purchases.filter(purchase => shopIds.includes(purchase.shopId));
     }
   
   
-    if (product) {
-      const productIds = Array.isArray(product) ? product.map(Number) : [Number(product)];
+    if (products) {
+
+      const productIds = Array.isArray(products) ? products.map(id => Number(id.match(/\d+/))) : [Number(products.match(/\d+/))];
+     
       purchases = purchases.filter(purchase => productIds.includes(purchase.productid));
     }
   
@@ -152,7 +152,6 @@ app.get('/shops', (req, res) => {
   
     res.json(purchases);
   });
-  
   
   app.get('/totalPurchase/shop/:id', (req, res) => {
     const shopId = parseInt(req.params.id);
